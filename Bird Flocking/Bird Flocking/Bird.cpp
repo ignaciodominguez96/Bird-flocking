@@ -1,8 +1,8 @@
 #include "Bird.h"
 
-#define _USE_MATH_DEFINE
+#define _USE_MATH_DEFINES
 
-#include "math.h"
+#include <math.h>
 #include "Random.h"
 
 #define PI M_PI
@@ -22,8 +22,8 @@ double calculate_distance(Position * p1, Position * p2);
 Bird
 ::Bird()
 {
-	direction_actual = 0.0;
-	direction_next = 0.0;
+	direction_angle_actual = 0.0;
+	direction_angle_next = 0.0;
 	rjiggle = 0;
 	eyesight = 0;
 
