@@ -27,7 +27,7 @@ class Position
 		double y;
 
 		double max_x; 
-		double max_y; #error "ver si no conviene poner en un define"
+		double max_y; //#error "ver si no conviene poner en un define"
 
 			
 
