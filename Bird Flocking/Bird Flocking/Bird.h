@@ -7,6 +7,12 @@
 #include "Position.h"
 #include "typedefs.h"
 
+#define EYESIGHT_MAX 5
+#define EYESIGHT_MIN 1
+
+#define VELOCITY_MAX 5
+#define VELOCITY_MIN 1
+
 class Bird
 {
 	public:
@@ -24,10 +30,26 @@ class Bird
 		uint	get_velocity(void);
 		Position*	get_pos(void);
 
+		//setters
+
+		void set_direction_angle_actual(double direction_angle_actual_);
+		void set_direction_angle_next(double direction_angle_next_);
+		void set_rjiggle(uint rijggle_);
+		void set_eyesight(uint eyesight_);
+		void set_velocity(uint velocity_);
+		void get_pos(Position* pos_);
+
 
 
 		//metodos especiales
 		void move(void);
+		void calculate_new_direction(Bird * birds, uint bird_count);
+		bool is_in_eyesight(Bird * other_bird);
+
+		void increment_eyesight(void);
+		void decrement_eyesight(void);
+		void increment_velocity(void);
+		void decrement_velocity(void);
 
 
 	private:

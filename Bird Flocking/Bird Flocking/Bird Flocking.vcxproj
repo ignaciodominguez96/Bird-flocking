@@ -117,11 +117,13 @@
   <ItemGroup>
     <ClInclude Include="Bird.h" />
     <ClInclude Include="Position.h" />
+    <ClInclude Include="Random.h" />
     <ClInclude Include="typedefs.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bird.cpp" />
     <ClCompile Include="Position.cpp" />
+    <ClCompile Include="Random.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
