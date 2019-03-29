@@ -3,10 +3,19 @@
 #define _USE_MATH_DEFINE
 
 #include "math.h"
-
+#include "Random.h"
 
 #define PI M_PI
 #define PI_RAD (PI/180.0)
+
+#define ABSOLUTE(x) ( ( (x >= 0)? x : (x * (-1)) ) )
+
+
+/* Declaraciones funciones auxiliares */
+double calculate_distance(Position * p1, Position * p2);
+
+
+
 
 /*  Constructores  */
 
@@ -48,6 +57,20 @@ uint	Bird::get_eyesight(void) { return eyesight; }
 uint	Bird::get_rjiggle(void) { return rjiggle; }
 uint	Bird::get_velocity(void) { return velocity; }
 Position*	Bird::get_pos(void) { return pos; }
+
+
+/*  Setters */
+
+
+void Bird::set_direction_angle_actual(double direction_angle_actual_) { direction_angle_actual = direction_angle_actual_; }
+void Bird::set_direction_angle_next(double direction_angle_next_) { direction_angle_next = direction_angle_next_; }
+void Bird::set_rjiggle(uint rijggle_) { rjiggle = rijggle_; }
+void Bird::set_eyesight(uint eyesight_) { eyesight = eyesight_; }
+void Bird::set_velocity(uint velocity_) { velocity = velocity_; }
+void Bird::get_pos(Position* pos_) { pos = pos_; }
+
+
+
 
 /* Metodos especiales */
 
@@ -92,4 +115,95 @@ Bird::move(void)
 	pos->set_y(new_y);
 	
 
+}
+
+
+void Bird::calculate_new_direction(Bird * birds, uint bird_count)
+{
+	double sum = 0;
+
+	int cant_birds_in_range = 0;
+
+	for (uint i = 0; i < bird_count; i++)
+	{
+		if (is_in_eyesight(birds+i) )
+		{
+			sum += (birds + i)->get_direction_angle_actual;
+			cant_birds_in_range++;
+		}
+	}
+
+	double new_angle_direction = get_direction_angle_actual();
+
+	if (cant_birds_in_range > 1)
+	{
+		double random = ABSOLUTE(get_rjiggle());
+		new_angle_direction = (sum/cant_birds_in_range) + randDoubleBetween(random*-1, random);
+		set_direction_angle_next(new_angle_direction);
+
+	}
+
+	
+}
+
+
+bool Bird::is_in_eyesight(Bird * other_bird)
+{
+	bool is_in_eyesight = false;
+	if (calculate_distance(get_pos(), other_bird->get_pos() ) <=  get_eyesight())
+		is_in_eyesight = true;
+	
+	return is_in_eyesight;
+
+}
+
+
+
+void Bird::increment_eyesight(void)
+{
+	eyesight++;
+
+	if (eyesight >= EYESIGHT_MAX)
+		eyesight = EYESIGHT_MAX;
+	
+}
+
+void Bird::decrement_eyesight(void)
+{
+	eyesight--;
+
+	if (eyesight <= EYESIGHT_MIN)
+		eyesight = EYESIGHT_MIN;
+}
+
+void Bird::increment_velocity(void)
+{
+	velocity++;
+
+	if (velocity >= VELOCITY_MAX)
+		velocity = VELOCITY_MAX;
+
+}
+
+void Bird::decrement_velocity(void)
+{
+	velocity--;
+
+	if (velocity <= VELOCITY_MIN)
+		velocity = VELOCITY_MIN;
+
+}
+
+
+/*  Funciones auxiliares  */
+
+double calculate_distance(Position * p1, Position * p2)
+{
+	double distance = 0.0;
+
+	double aux = pow((p1->get_x() - p2->get_x), 2) + pow((p1->get_y() - p2->get_y), 2);
+
+	distance = sqrt(aux);
+
+	return distance;
 }
