@@ -9,9 +9,19 @@
 
 #define EYESIGHT_MAX 5
 #define EYESIGHT_MIN 1
+#define MAX_BIRDS 10	//maximo de pajaros
 
 #define VELOCITY_MAX 5
 #define VELOCITY_MIN 1
+
+#define R_JIGGLE_MAX 10
+#define R_JIGGLE_MIN 10
+
+
+
+// Declaraciones funciones auxiliares 
+double calculate_distance(Position * p1, Position * p2);
+
 
 class Bird
 {

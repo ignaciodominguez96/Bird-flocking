@@ -11,8 +11,7 @@
 #define ABSOLUTE(x) ( ( (x >= 0)? x : (x * (-1)) ) )
 
 
-/* Declaraciones funciones auxiliares */
-double calculate_distance(Position * p1, Position * p2);
+
 
 
 
