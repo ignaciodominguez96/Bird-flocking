@@ -8,6 +8,9 @@
 //#include "Bird.h"
 //#include "parser.h"
 #include "Allegro.h"
+#define R 118
+#define G 230
+#define B 254
 
 #define PRUEBA
 
@@ -118,12 +121,12 @@ static int parseCallBack(const char* key, const char* value, void* userData)
 #endif // !PRUEBA
 
 #ifdef PRUEBA
-
+/*
 int main(void)
 {
 	AllegroDisplay * aldisplay = (AllegroDisplay *)malloc(sizeof(AllegroDisplay));
 	aldisplay->initAllegroDisplay("textfont.ttf", 70, 100, "bird.png");
-	aldisplay->setDisplayColor(118, 230, 254);
+	aldisplay->setDisplayColor(R, G, B);
 	aldisplay->updateBird(50, 35, 1.0);
 	aldisplay->updateDisplay();
 	char c = getchar();
@@ -131,6 +134,12 @@ int main(void)
 	free(aldisplay);
 
 }
+*/
+int main(void)
+{
+
+}
+
 #endif // PRUEBA
 
 
