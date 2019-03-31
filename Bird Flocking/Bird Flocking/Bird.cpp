@@ -1,9 +1,13 @@
-#include "Bird.h"
+
+
 
 #define _USE_MATH_DEFINES
-
 #include <math.h>
+#include "Bird.h"
 #include "Random.h"
+
+
+
 
 #define PI M_PI
 #define PI_RAD (PI/180.0)
@@ -73,8 +77,7 @@ void Bird::get_pos(Position* pos_) { pos = pos_; }
 
 /* Metodos especiales */
 
-void
-Bird::move(void)
+void Bird::move(void)
 {
 	double direction = direction_angle_actual;
 
