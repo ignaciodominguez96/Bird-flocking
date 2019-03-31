@@ -37,10 +37,10 @@ int main(int argc, char const *argv[])
 {
 	Data_t userData = { 0,0,0 };
 	
-
+	//parsing command line
 	if (argc == MAXOPTIONS)
 	{
-		//parsing command line
+		
 		if ((parseCmdLine(argc, argv, parseCallBack, &userData)) == ERROR)
 		{
 			printf("Data entry error.\n");
@@ -55,6 +55,14 @@ int main(int argc, char const *argv[])
 
 		return 0; //there was an error, abort
 	}
+
+
+
+
+
+
+
+
 
 	
 }
