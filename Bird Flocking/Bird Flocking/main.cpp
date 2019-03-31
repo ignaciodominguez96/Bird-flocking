@@ -5,9 +5,13 @@
 #include <cstdio>
 #include <string.h>
 
-#include "Bird.h"
-#include "parser.h"
+//#include "Bird.h"
+//#include "parser.h"
+#include "Allegro.h"
 
+#define PRUEBA
+
+#ifndef PRUEBA
 
 #define MAXOPTIONS 7	//maximo de argumentos a ingresar
 
@@ -110,6 +114,26 @@ static int parseCallBack(const char* key, const char* value, void* userData)
 	}
 
 }
+
+#endif // !PRUEBA
+
+#ifdef PRUEBA
+
+int main(void)
+{
+	AllegroDisplay * aldisplay = (AllegroDisplay *)malloc(sizeof(AllegroDisplay));
+	aldisplay->initAllegroDisplay("textfont.ttf", 70, 100, "bird.png");
+	aldisplay->setDisplayColor(118, 230, 254);
+	aldisplay->updateBird(50, 35, 1.0);
+	aldisplay->updateDisplay();
+	char c = getchar();
+	aldisplay->destroyAllegroDisplay();
+	free(aldisplay);
+
+}
+#endif // PRUEBA
+
+
 
 
 

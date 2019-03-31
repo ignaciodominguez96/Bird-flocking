@@ -93,21 +93,25 @@ Bird::move(void)
 	if (new_x < 0)
 	{
 		new_x = limit_x;
+		//new_x += limit_x;
 	}
 
 	if (new_x > limit_x)
 	{
 		new_x = 0;
+		//new_x -= limit_x;	
 	}
 
 	if (new_y < 0)
 	{
 		new_y = limit_y;
+		//new_y += limit_y;
 	}
 
 	if (new_y > limit_y)
 	{
 		new_y = 0;
+		//new_y -= limit_y;
 	}
 
 	pos->set_x(new_x);
@@ -127,7 +131,7 @@ void Bird::calculate_new_direction(Bird * birds, uint bird_count)
 	{
 		if (is_in_eyesight(birds+i) )
 		{
-			sum += (birds + i)->get_direction_angle_actual;
+			sum += (birds + i)->get_direction_angle_actual();
 			cant_birds_in_range++;
 		}
 	}
@@ -200,7 +204,7 @@ double calculate_distance(Position * p1, Position * p2)
 {
 	double distance = 0.0;
 
-	double aux = pow((p1->get_x() - p2->get_x), 2) + pow((p1->get_y() - p2->get_y), 2);
+	double aux = pow((p1->get_x() - p2->get_x()), 2) + pow((p1->get_y() - p2->get_y()), 2);
 
 	distance = sqrt(aux);
 
