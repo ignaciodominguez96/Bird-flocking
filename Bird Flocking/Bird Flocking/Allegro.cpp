@@ -120,3 +120,55 @@ void AllegroDisplay::updateDisplay(void)
 {
 	al_flip_display();
 }
+
+enum event AllegroDisplay::getNextEvent(void)
+{
+	ALLEGRO_EVENT ev;
+	al_get_next_event(event_queue, &ev);
+	switch (ev.type)
+	{
+		case ALLEGRO_EVENT_DISPLAY_CLOSE:
+			return quit_;
+			break;
+		case ALLEGRO_EVENT_KEY_DOWN:
+			switch (ev.keyboard.keycode)
+			{
+			case ALLEGRO_KEY_1: case ALLEGRO_KEY_PAD_1:
+				return mode1_;
+				break;
+
+			case ALLEGRO_KEY_2: case ALLEGRO_KEY_PAD_2:
+				return mode2_;
+				break;
+			case ALLEGRO_KEY_3: case ALLEGRO_KEY_PAD_3:
+				return inceyesight_;
+				break;
+			case ALLEGRO_KEY_4: case ALLEGRO_KEY_PAD_4:
+				return deceyesight_;
+				break;
+
+			case ALLEGRO_KEY_5: case ALLEGRO_KEY_PAD_5:
+				return incrjiggle_;
+				break;
+
+			case ALLEGRO_KEY_6: case ALLEGRO_KEY_PAD_6:
+				return decrjiggle_;
+				break;
+
+			case ALLEGRO_KEY_7: case ALLEGRO_KEY_PAD_7:
+				return incvelocity_;
+				break;
+			case ALLEGRO_KEY_8: case ALLEGRO_KEY_PAD_8:
+				return decvelocity_;
+				break;
+			case  ALLEGRO_KEY_Q:    
+				return quit_;
+				break;
+			}
+			return null_;
+			break;
+		case ALLEGRO_EVENT_TIMER:
+			return timer_;
+			break;
+	}
+}

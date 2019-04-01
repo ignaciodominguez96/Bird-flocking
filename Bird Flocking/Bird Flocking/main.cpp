@@ -5,14 +5,19 @@
 #include <cstdio>
 #include <string.h>
 
-//#include "Bird.h"
-//#include "parser.h"
+#include "Bird.h"
+#include "parser.h"
 #include "Allegro.h"
+#include "Random.h"
+#define HEIGHT 70
+#define WIDTH 100
 #define R 118
 #define G 230
 #define B 254
+#define RUNNINGSPEED 0.000000001
+#define STEP 0.01
 
-#define PRUEBA
+//#define PRUEBA
 
 #ifndef PRUEBA
 
@@ -22,20 +27,23 @@
 
 static int parseCallBack(const char*, const char*, void*);
 
-
+enum modes { mode1 = 1, mode2};
 
 typedef struct
 {
 	int birds_num;
 	double eyeSight;
 	int	 randomJiggleLimit;
+	int mode;
 
 }Data_t;
 
 
 int main(int argc, char const *argv[])
 {
-	Data_t userData = { 0,0,0 };
+	Data_t * userData = (Data_t*)malloc((sizeof(Data_t)));
+
+	srand(time(NULL));
 	
 	//parsing command line
 	if (argc == MAXOPTIONS)
@@ -55,8 +63,62 @@ int main(int argc, char const *argv[])
 
 		return 0; //there was an error, abort
 	}
+	
+
+	//aca empieza la simulacion
+	Bird * bird = new Bird[userData->birds_num];
+	AllegroDisplay * aldisplay = new AllegroDisplay;
+	aldisplay->initAllegroDisplay("textfont.ttf", HEIGHT , WIDTH , "bird.png");
+	aldisplay->initTimer();
+
+	bool quit = false;
+	double r_jiggle_limit = R_JIGGLE_MAX;
+	int i;
+	//set velocity depending on mode
+	switch (userData->mode)
+	{
+		case mode1:
+			for (i = 0; i < userData->birds_num; i++)
+			{
+				bird[i].set_velocity(VELOCITY_MIN);
+			}
+			break;
+		case mode2:
+			for (i = 0; i < userData->birds_num; i++)
+			{
+				bird[i].set_velocity(randIntBetween(VELOCITY_MIN, VELOCITY_MAX));
+			}
+			break;
+	}
+
+	//set eyesight, rjiggle, max pos, pos
+	for (i = 0; i < userData->birds_num; i++)
+	{
+		bird[i].set_eyesight(userData->eyeSight); //hay un casteo implicito (double)->(uint)
+		bird[i].set_rjiggle(randIntBetween(0, r_jiggle_limit)); //no deberia ir en rad?
+		bird[i].set_max_pos(WIDTH, HEIGHT);
+		bird[i].set_pos(randDoubleBetween(0.0, WIDTH), randDoubleBetween(0.0, HEIGHT));
+	}
+
+	int j = 0;
+	while (!quit)
+	{
+		switch (aldisplay->getNextEvent())
+		{
+		case timer_:
 
 
+		}
+		
+	}
+
+	aldisplay->setDisplayColor(R, G, B);
+	aldisplay->updateBird(50, 35, 1.0);
+	aldisplay->updateDisplay();
+	char c = getchar();
+	aldisplay->destroyAllegroDisplay();
+	delete[] aldisplay;
+	delete[] bird;
 
 
 
@@ -129,7 +191,7 @@ static int parseCallBack(const char* key, const char* value, void* userData)
 #endif // !PRUEBA
 
 #ifdef PRUEBA
-/*
+
 int main(void)
 {
 	AllegroDisplay * aldisplay = (AllegroDisplay *)malloc(sizeof(AllegroDisplay));
@@ -142,11 +204,8 @@ int main(void)
 	free(aldisplay);
 
 }
-*/
-int main(void)
-{
 
-}
+
 
 #endif // PRUEBA
 
