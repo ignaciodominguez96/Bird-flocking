@@ -171,4 +171,5 @@ enum event AllegroDisplay::getNextEvent(void)
 			return timer_;
 			break;
 	}
+	return null_;
 }

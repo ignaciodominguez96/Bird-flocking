@@ -70,7 +70,8 @@ void Bird::set_direction_angle_next(double direction_angle_next_) { direction_an
 void Bird::set_rjiggle(uint rijggle_) { rjiggle = rijggle_; }
 void Bird::set_eyesight(double eyesight_) { eyesight = eyesight_; }
 void Bird::set_velocity(uint velocity_) { velocity = velocity_; }
-
+void Bird::set_pos(Position* pos_) { pos = pos_; }
+/*
 void Bird::set_pos(double x, double y)
 {
 	pos->set_x(x);
@@ -81,6 +82,7 @@ void Bird::set_max_pos(double x, double y)
 	pos->set_max_x(x);
 	pos->set_max_y(y);
 }
+*/
 
 
 
@@ -105,31 +107,34 @@ void Bird::move(void)
 
 	if (new_x < 0)
 	{
-		new_x = limit_x;
-		//new_x += limit_x;
+		//new_x = limit_x;
+		new_x += limit_x;
 	}
 
 	if (new_x > limit_x)
 	{
-		new_x = 0;
-		//new_x -= limit_x;	
+		//new_x = 0;
+		new_x -= limit_x;	
 	}
 
 	if (new_y < 0)
 	{
-		new_y = limit_y;
-		//new_y += limit_y;
+		//new_y = limit_y;
+		new_y += limit_y;
 	}
 
 	if (new_y > limit_y)
 	{
-		new_y = 0;
-		//new_y -= limit_y;
+		//new_y = 0;
+		new_y -= limit_y;
 	}
 
+	pos->set_next_x(new_x);
+	pos->set_next_y(new_y);
+	/*
 	pos->set_x(new_x);
 	pos->set_y(new_y);
-	
+	*/
 
 }
 

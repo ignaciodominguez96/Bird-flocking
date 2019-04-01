@@ -32,6 +32,8 @@ class Bird
 
 		Bird(uint velocity_, double eyesight_, uint rjiggle_, uint pos_x, uint pos_y, uint height, uint width);
 
+		Position* pos;
+
 		//getters
 		double	get_direction_angle_actual(void);
 		double	get_direction_angle_next(void);
@@ -40,6 +42,7 @@ class Bird
 		uint	get_velocity(void);
 		Position*	get_pos(void);
 
+
 		//setters
 
 		void set_direction_angle_actual(double direction_angle_actual_);
@@ -47,9 +50,11 @@ class Bird
 		void set_rjiggle(uint rijggle_);
 		void set_eyesight(double eyesight_);
 		void set_velocity(uint velocity_);
+		void set_pos(Position* pos_);
+		/*
 		void set_pos(double x, double y);
 		void set_max_pos(double x, double y);
-
+		*/
 
 
 		//metodos especiales
@@ -70,7 +75,7 @@ class Bird
 		double eyesight;
 
 		uint velocity;
-		Position* pos;
+	
 
 
 };
