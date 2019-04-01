@@ -8,6 +8,8 @@
 #include <allegro5/allegro_font.h> //manejo de fonts
 #include <allegro5/allegro_ttf.h> //Manejo de ttfs
 
+enum event {null_ , timer_ , quit_ , mode1_ , mode2_ , inceyesight_ , deceyesight_ , incrjiggle_ , decrjiggle_ , incvelocity_ , decvelocity_};
+
 class AllegroDisplay
 {
 	public:
@@ -22,6 +24,7 @@ class AllegroDisplay
 		void setDisplayColor(unsigned char r, unsigned char g, unsigned char b);
 		void updateBird(double x, double y, double angle);
 		void updateDisplay(void);
+		enum event getNextEvent(void);
 		
 	private:
 		ALLEGRO_DISPLAY* display;

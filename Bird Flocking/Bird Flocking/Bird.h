@@ -47,7 +47,9 @@ class Bird
 		void set_rjiggle(uint rijggle_);
 		void set_eyesight(uint eyesight_);
 		void set_velocity(uint velocity_);
-		void set_pos(Position* pos_);
+		//void set_pos(Position* pos_);
+		void set_pos(double x, double y);
+		void set_max_pos(double x, double y);
 
 
 
