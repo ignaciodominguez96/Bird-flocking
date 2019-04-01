@@ -70,7 +70,7 @@ void Bird::set_direction_angle_next(double direction_angle_next_) { direction_an
 void Bird::set_rjiggle(uint rijggle_) { rjiggle = rijggle_; }
 void Bird::set_eyesight(double eyesight_) { eyesight = eyesight_; }
 void Bird::set_velocity(uint velocity_) { velocity = velocity_; }
-//void Bird::set_pos(Position* pos_) { pos = pos_; }
+
 void Bird::set_pos(double x, double y)
 {
 	pos->set_x(x);
