@@ -26,6 +26,7 @@ typedef struct
 	int birds_num;
 	double eyeSight;
 	int	 randomJiggleLimit;
+	int mode;
 
 }Data_t;
 
@@ -132,7 +133,7 @@ int main(void)
 	AllegroDisplay * aldisplay = (AllegroDisplay *)malloc(sizeof(AllegroDisplay));
 	aldisplay->initAllegroDisplay("textfont.ttf", 70, 100, "bird.png");
 	aldisplay->setDisplayColor(118, 230, 254);
-	aldisplay->updateBird(50, 35, 1.0);
+	aldisplay->updateBird(30, 20, 1.0);
 	aldisplay->updateDisplay();
 	char c = getchar();
 	aldisplay->destroyAllegroDisplay();
