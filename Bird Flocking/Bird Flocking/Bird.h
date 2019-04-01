@@ -30,12 +30,12 @@ class Bird
 		//constructores
 		Bird();
 
-		Bird(uint velocity_, uint eyesight_, uint rjiggle_, uint pos_x, uint pos_y, uint height, uint width);
+		Bird(uint velocity_, double eyesight_, uint rjiggle_, uint pos_x, uint pos_y, uint height, uint width);
 
 		//getters
 		double	get_direction_angle_actual(void);
 		double	get_direction_angle_next(void);
-		uint	get_eyesight(void);
+		double	get_eyesight(void);
 		uint	get_rjiggle(void);
 		uint	get_velocity(void);
 		Position*	get_pos(void);
@@ -45,7 +45,7 @@ class Bird
 		void set_direction_angle_actual(double direction_angle_actual_);
 		void set_direction_angle_next(double direction_angle_next_);
 		void set_rjiggle(uint rijggle_);
-		void set_eyesight(uint eyesight_);
+		void set_eyesight(double eyesight_);
 		void set_velocity(uint velocity_);
 		void set_pos(double x, double y);
 		void set_max_pos(double x, double y);
@@ -67,7 +67,7 @@ class Bird
 		double direction_angle_actual;
 		double direction_angle_next;
 		uint rjiggle;
-		uint eyesight;
+		double eyesight;
 
 		uint velocity;
 		Position* pos;

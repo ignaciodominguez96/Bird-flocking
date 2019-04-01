@@ -39,7 +39,7 @@ Bird
 }
 
 Bird
-::Bird(uint velocity_, uint eyesight_, uint rjiggle_, uint pos_x, uint pos_y, uint height, uint width)
+::Bird(uint velocity_, double eyesight_, uint rjiggle_, uint pos_x, uint pos_y, uint height, uint width)
 {
 	rjiggle = rjiggle_;
 	eyesight = eyesight_;
@@ -56,7 +56,7 @@ Bird
 
 double	Bird::get_direction_angle_actual(void) { return direction_angle_actual; }
 double	Bird::get_direction_angle_next(void) { return direction_angle_next; }
-uint	Bird::get_eyesight(void) { return eyesight; }
+double	Bird::get_eyesight(void) { return eyesight; }
 uint	Bird::get_rjiggle(void) { return rjiggle; }
 uint	Bird::get_velocity(void) { return velocity; }
 Position*	Bird::get_pos(void) { return pos; }
@@ -68,7 +68,7 @@ Position*	Bird::get_pos(void) { return pos; }
 void Bird::set_direction_angle_actual(double direction_angle_actual_) { direction_angle_actual = direction_angle_actual_; }
 void Bird::set_direction_angle_next(double direction_angle_next_) { direction_angle_next = direction_angle_next_; }
 void Bird::set_rjiggle(uint rijggle_) { rjiggle = rijggle_; }
-void Bird::set_eyesight(uint eyesight_) { eyesight = eyesight_; }
+void Bird::set_eyesight(double eyesight_) { eyesight = eyesight_; }
 void Bird::set_velocity(uint velocity_) { velocity = velocity_; }
 //void Bird::set_pos(Position* pos_) { pos = pos_; }
 void Bird::set_pos(double x, double y)
