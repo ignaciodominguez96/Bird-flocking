@@ -29,7 +29,7 @@
 
 #ifndef PRUEBA
 
-#define MAXOPTIONS 7	//maximo de argumentos a ingresar
+#define MAXOPTIONS 9	//maximo de argumentos a ingresar
 
 
 
@@ -41,7 +41,7 @@ typedef struct
 {
 	int birds_num;
 	double eyeSight;
-	int	 randomJiggleLimit;
+	double	 randomJiggleLimit;
 	int mode;
 
 }Data_t;
@@ -52,12 +52,15 @@ int main(int argc, char const *argv[])
 	Data_t * userData = (Data_t*)malloc((sizeof(Data_t)));
 
 	srand(time(NULL));
-	/*
-	//parsing command line
+	
+	/*parsing command line*/ 
+
+	// INGRESAR POR LINEA DE COMANDO: Bird -birds x -eyeSight y -randomJiggleLimit z -mode w
+
 	if (argc == MAXOPTIONS)
 	{
 		
-		if ((parseCmdLine(argc, argv, parseCallBack, &userData)) == ERROR)
+		if ((parseCmdLine(argc, argv, parseCallBack, userData)) == ERROR)
 		{
 			printf("Data entry error.\n");
 
@@ -71,18 +74,32 @@ int main(int argc, char const *argv[])
 
 		return 0; //there was an error, abort
 	}
-	*/
+	/**/
 
-	/**************************/
-	userData->birds_num = 200;
+	/**************************
+	userData->birds_num = 1;
 	userData->eyeSight = 3;
 	userData->mode = mode1;
 	userData->randomJiggleLimit = 0.0;
 	/**************************/
 
+
+	/*
+	printf("%i\n", userData->birds_num);
+	printf("%f\n", userData->eyeSight);
+	printf("%f\n", userData->randomJiggleLimit);
+	*/
+
+
+
+
+
+
 	//aca empieza la simulacion
 	Bird * bird = new Bird[userData->birds_num];
 	//Bird * bird = (Bird*)malloc(sizeof(Bird)*userData->birds_num);
+	
+
 	AllegroDisplay * aldisplay = new AllegroDisplay;
 	aldisplay->initAllegroDisplay("textfont.ttf", HEIGHT , WIDTH , "bird.png");
 	aldisplay->initTimer();
@@ -312,6 +329,7 @@ static int parseCallBack(const char* key, const char* value, void* userData)
 			if ((atoi(value) > 0) && (atoi(value) <= MAX_BIRDS))
 			{
 				((Data_t*)userData)->birds_num = atoi(value);
+				//printf("%d\n", ((Data_t*)userData)->birds_num);
 				return true;
 			}
 			else
@@ -327,6 +345,7 @@ static int parseCallBack(const char* key, const char* value, void* userData)
 			if ((atof(value) >= EYESIGHT_MIN) && (atof(value) <= EYESIGHT_MAX))
 			{
 				((Data_t*)userData)->eyeSight = atof(value);
+				//printf("%f\n", ((Data_t*)userData)->eyeSight);
 				return true;
 			}
 			else
@@ -337,14 +356,38 @@ static int parseCallBack(const char* key, const char* value, void* userData)
 		}
 		else if (!(strcmp(key, "randomJiggleLimit")))
 		{
-			if ((atoi(value) >= R_JIGGLE_MIN) && (atoi(value) <= R_JIGGLE_MAX))
+			if ((atoi(value) >= R_JIGGLE_MIN) && (atof(value) <= R_JIGGLE_MAX))
 			{
-				((Data_t*)userData)->randomJiggleLimit = atoi(value);
+				((Data_t*)userData)->randomJiggleLimit = atof(value);
+				//printf("%f\n", ((Data_t*)userData)->randomJiggleLimit);
+				
 				return true;
 			}
 			else
 			{
 				printf("Ingrese el randomJiggleLimit entre %d y %f\n", R_JIGGLE_MIN, R_JIGGLE_MAX);
+				return false;
+			}
+		}
+		else if (!(strcmp(key, "mode")))
+		{
+			if ((atoi(value) == mode1))
+			{
+				((Data_t*)userData)->mode = atoi(value);
+				
+
+				return true;
+			}
+			else if ((atoi(value) == mode2))
+			{
+				((Data_t*)userData)->mode = atoi(value);
+
+
+				return true;
+			}
+			else
+			{
+				printf("Ingrese el modo 1 o el modo 2 \n");
 				return false;
 			}
 		}

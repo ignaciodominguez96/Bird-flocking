@@ -1,15 +1,13 @@
 
 
 
-#define _USE_MATH_DEFINES
-#include <math.h>
 #include "Bird.h"
 #include "Random.h"
 
 
 
 
-#define PI M_PI
+
 #define PI_RAD (PI/180.0)
 
 #define ABSOLUTE(x) ( ( (x >= 0)? x : (x * (-1)) ) )
