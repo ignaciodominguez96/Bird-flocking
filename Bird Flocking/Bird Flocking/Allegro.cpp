@@ -3,15 +3,7 @@
 #include <stdbool.h>
 #include "Allegro.h"
 
-#define TIMER 10.0
-#define FPS 300.0
-#define TEXTSIZE 50
-#define MODETEXTSIZE 50
-#define UNIT 20
-#define CX 76
-#define CY 38
-#define BIRDSCALE 0.17
-#define SPACE TEXTSIZE
+
 
 
 AllegroDisplay::AllegroDisplay()
@@ -58,7 +50,6 @@ bool AllegroDisplay::initAllegroDisplay(const char * textfont, int h, int w, con
 	al_init_ttf_addon();// initialize the ttf (True Type Font) addon
 
 	font = al_load_ttf_font(textfont, TEXTSIZE, 0); //HAY CREAR UN FONT PARA CADA TAMAÑO DE LETRA :( 
-
 	if (!font) {
 		fprintf(stderr, "Could not load text font.\n");
 		return false;
@@ -78,7 +69,7 @@ bool AllegroDisplay::initAllegroDisplay(const char * textfont, int h, int w, con
 		return false;
 	}
 	al_init_image_addon();
-	bird = al_load_bitmap(birdimage); //create leds bitmap.
+	bird = al_load_bitmap(birdimage); //create birds bitmap.
 
 	if (!bird) {
 		fprintf(stderr, "failed to create leds bitmap!\n");
@@ -88,13 +79,11 @@ bool AllegroDisplay::initAllegroDisplay(const char * textfont, int h, int w, con
 		return false;
 	}
 
-	//al_set_target_bitmap(al_get_backbuffer(display)); //Setea el bitmap a dibujar nuevamente en el display
 	al_clear_to_color(al_map_rgb(255, 255, 255)); //Hace clear del backbuffer del diplay al color RGB 0,0,0 (negro)
 
 	//Registra el display a la cola de eventos, los eventos del display se iran guardando en la cola a medida que vayan sucediendo
 	al_register_event_source(event_queue, al_get_display_event_source(display)); //REGISTRAMOS EL DISPLAY
 	al_register_event_source(event_queue, al_get_timer_event_source(timer)); //REGISTRAMOS EL TIMER
-	al_register_event_source(event_queue, al_get_mouse_event_source()); //REGISTRAMOS EL MOUSE
 	al_register_event_source(event_queue, al_get_keyboard_event_source()); //REGISTRAMOS EL TECLADO
 
 	return true;
@@ -115,7 +104,6 @@ void AllegroDisplay::initTimer(void)
 
 void AllegroDisplay::setDisplayColor(unsigned char r, unsigned char g, unsigned char b)
 {
-	//al_set_target_bitmap(al_get_backbuffer(display)); 
 	al_clear_to_color(al_map_rgb(r, g, b)); 
 }
 
@@ -148,29 +136,26 @@ enum event AllegroDisplay::getNextEvent(void)
 			case ALLEGRO_KEY_2: case ALLEGRO_KEY_PAD_2:
 				return mode2_;
 				break;
-			case ALLEGRO_KEY_3: case ALLEGRO_KEY_PAD_3:
-				return inceyesight_;
-				break;
-			case ALLEGRO_KEY_4: case ALLEGRO_KEY_PAD_4:
-				return deceyesight_;
-				break;
-
-			case ALLEGRO_KEY_5: case ALLEGRO_KEY_PAD_5:
-				return incrjiggle_;
-				break;
-
-			case ALLEGRO_KEY_6: case ALLEGRO_KEY_PAD_6:
-				return decrjiggle_;
-				break;
-
-			case ALLEGRO_KEY_7: case ALLEGRO_KEY_PAD_7:
-				return incvelocity_;
-				break;
-			case ALLEGRO_KEY_8: case ALLEGRO_KEY_PAD_8:
-				return decvelocity_;
-				break;
-			case  ALLEGRO_KEY_Q:    
+			case ALLEGRO_KEY_Q:
 				return quit_;
+				break;
+
+			case ALLEGRO_KEY_E:
+				return eyesight_;
+				break;
+			
+			case ALLEGRO_KEY_R:
+				return rjiggle_;
+				break;
+
+			case ALLEGRO_KEY_V:
+				return velocity_;
+				break;
+			case ALLEGRO_KEY_UP:
+				return up_;
+				break;
+			case ALLEGRO_KEY_DOWN:
+				return down_;
 				break;
 			}
 			return null_;
@@ -187,15 +172,15 @@ void AllegroDisplay::printText(const char* text, int line)
 	al_draw_text(font, al_map_rgb(255, 0, 0), 0, line * SPACE, ALLEGRO_ALIGN_LEFT, text);
 }
 
-void AllegroDisplay::printMode(int mode, int w, int h)
+void AllegroDisplay::printMode(int mode)
 {
 	switch (mode)
 	{
 	case 1:
-		al_draw_text(font, al_map_rgb(255, 0, 0), w*UNIT , h*UNIT, ALLEGRO_ALIGN_CENTRE, "MODE 1");
+		al_draw_text(font2, al_map_rgb(255, 0, 0), 50.0*UNIT, 35.0*UNIT, ALLEGRO_ALIGN_CENTRE, "MODE 1");
 		break;
 	case 2:
-		al_draw_text(font, al_map_rgb(255, 0, 0), w*UNIT, h*UNIT, ALLEGRO_ALIGN_CENTRE, "MODE 2");
+		al_draw_text(font2, al_map_rgb(255, 0, 0), 50.0*UNIT, 35.0*UNIT, ALLEGRO_ALIGN_CENTRE, "MODE 2");
 		break;
 	}
 }

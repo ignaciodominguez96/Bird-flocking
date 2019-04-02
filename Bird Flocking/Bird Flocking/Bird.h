@@ -13,15 +13,16 @@
 
 #define PI M_PI
 
-#define EYESIGHT_MAX 10
+#define EYESIGHT_MAX 5
 #define EYESIGHT_MIN 1
-#define MAX_BIRDS 50	//maximo de pajaros
+#define MAX_BIRDS 500	//maximo de pajaros
 
 #define VELOCITY_MAX 5
 #define VELOCITY_MIN 1
 
 #define R_JIGGLE_MAX PI
 #define R_JIGGLE_MIN 0
+#define D_R_JIGGLE 0.1
 
 
 
@@ -73,6 +74,8 @@ class Bird
 		void decrement_eyesight(void);
 		void increment_velocity(void);
 		void decrement_velocity(void);
+		void increment_randomjigglelimit(void);
+		void decrement_randomjigglelimit(void);
 
 
 	private:
