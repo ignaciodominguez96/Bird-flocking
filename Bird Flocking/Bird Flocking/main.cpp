@@ -15,8 +15,8 @@
 #include "parser.h"
 #include "Allegro.h"
 #include "Random.h"
-#define HEIGHT 70
-#define WIDTH 100
+#define HEIGHT 50
+#define WIDTH 50
 #define R 118
 #define G 230
 #define B 254
@@ -398,6 +398,7 @@ static int parseCallBack(const char* key, const char* value, void* userData)
 			return false;
 		}
 	}
+	return false;
 
 }
 
