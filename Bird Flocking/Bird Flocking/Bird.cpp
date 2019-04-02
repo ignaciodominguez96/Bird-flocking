@@ -151,6 +151,10 @@ void Bird::calculate_new_direction(Bird * birds, uint bird_count)
 		if (is_in_eyesight(birds+i) )
 		{
 			sum += (birds + i)->get_direction_angle_actual();
+			if ((birds + i)->get_direction_angle_actual() < 0)
+			{
+				sum += PI;
+			}
 			cant_birds_in_range++;
 		}
 	}
@@ -218,6 +222,19 @@ void Bird::decrement_velocity(void)
 	if (velocity <= VELOCITY_MIN)
 		velocity = VELOCITY_MIN;
 
+}
+
+void Bird::increment_randomjigglelimit(void)
+{
+	rjiggle += D_R_JIGGLE;
+	if (rjiggle > PI)
+		rjiggle = PI;
+}
+void Bird::decrement_randomjigglelimit(void)
+{
+	rjiggle -= D_R_JIGGLE;
+	if (rjiggle < 0.0)
+		rjiggle = 0.0;
 }
 
 

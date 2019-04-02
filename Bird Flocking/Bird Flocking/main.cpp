@@ -1,5 +1,11 @@
 
-
+/*
+TP3
+INGRESAR POR LINEA DE COMANDO: Bird -birds x -eyeSight y -randomJiggleLimit z -mode w
+Con las teclas 1 y 2, se puede cambiar al modo 1 y al modo 2 respectivamente.
+Para incrementar o decrementar eyesight, randomjigglelimit o velocity, se presionan las teclas E , R o V
+y luege se presiona la tecla "up" si se quiere incrementar el valor o la tecla "down" si se busca descrementarla.
+*/
 #include<iostream>
 #include <cstdlib>
 #include <stdint.h>
@@ -20,7 +26,6 @@
 #define R 118
 #define G 230
 #define B 254
-#define RUNNINGSPEED 0.000000001
 #define STEP 0.5
 
 #define ABSOLUTE(x) ( ( ((x) >= 0)? (x) : ((x) * (-1)) ) )
@@ -74,31 +79,10 @@ int main(int argc, char const *argv[])
 
 		return 0; //there was an error, abort
 	}
-	/**/
-
-	/**************************
-	userData->birds_num = 1;
-	userData->eyeSight = 3;
-	userData->mode = mode1;
-	userData->randomJiggleLimit = 0.0;
-	
 	
 
-
-	/*
-	printf("%i\n", userData->birds_num);
-	printf("%f\n", userData->eyeSight);
-	printf("%f\n", userData->randomJiggleLimit);
-	*/
-
-
-
-
-
-
-	//aca empieza la simulacion
 	Bird * bird = new Bird[userData->birds_num];
-	//Bird * bird = (Bird*)malloc(sizeof(Bird)*userData->birds_num);
+	
 	
 
 	AllegroDisplay * aldisplay = new AllegroDisplay;
@@ -106,16 +90,15 @@ int main(int argc, char const *argv[])
 	aldisplay->initTimer();
 
 	bool quit = false;
-	double r_jiggle_limit = R_JIGGLE_MAX/2;
+	//double r_jiggle_limit = R_JIGGLE_MAX/2;
 	int i;
+	int key = -1;
 	bool restart = true;
-	
-
 	double j = 0.0;
 	double x, y;
 	while (!quit)
-	{
-		if (restart)
+	{	
+		if (restart)	//si se modifico el modo
 		{
 			//set velocity depending on mode
 			switch (userData->mode)
@@ -138,22 +121,24 @@ int main(int argc, char const *argv[])
 			for (i = 0; i < userData->birds_num; i++)
 			{
 				bird[i].set_eyesight(userData->eyeSight); //hay un casteo implicito (double)->(uint)
-				bird[i].set_rjiggle(randIntBetween(r_jiggle_limit*(-1), r_jiggle_limit)); //no deberia ir en rad?
+				//bird[i].set_rjiggle(randIntBetween(userData->randomJiggleLimit*-1, userData->randomJiggleLimit)); //no deberia ir en rad?
+				bird[i].set_rjiggle(userData->randomJiggleLimit);
 				bird[i].pos.set_max_x(WIDTH);
 				bird[i].pos.set_max_y(HEIGHT);
 				bird[i].pos.set_x(randDoubleBetween(0.0, WIDTH));
 				bird[i].pos.set_y(randDoubleBetween(0.0, HEIGHT));
 				bird[i].pos.set_real_time_x(bird[i].pos.get_x());
 				bird[i].pos.set_real_time_y(bird[i].pos.get_y());
-				bird[i].set_direction_angle_actual(randDoubleBetween(-3.14, 3.14));
+				bird[i].set_direction_angle_actual(randDoubleBetween(PI*-1, PI));
 				/*bird[i].set_max_pos(WIDTH, HEIGHT);
 				bird[i].set_pos(randDoubleBetween(0.0, WIDTH), randDoubleBetween(0.0, HEIGHT));*/
 				bird[i].move();
 			}
 			aldisplay->setDisplayColor(R, G, B);
-			aldisplay->printMode(userData->mode, WIDTH, HEIGHT);
+			aldisplay->printMode(userData->mode);
 			aldisplay->updateDisplay();
 			i = 0;
+			//rest
 			while (i < 50)
 			{
 				if (aldisplay->getNextEvent() == timer_)
@@ -162,12 +147,13 @@ int main(int argc, char const *argv[])
 			restart = false;
 		}
 	
-		switch (aldisplay->getNextEvent())
+		switch (aldisplay->getNextEvent())		//manejo de eventos del allegro.
 		{
 			case timer_:
 				aldisplay->setDisplayColor(R, G, B);
 				for (i = 0; i < userData->birds_num; i++)
 				{
+					//find real time x,y
 					double dist_x = bird[i].pos.get_next_x() - bird[i].pos.get_x();
 					if (ABSOLUTE(dist_x) >= bird[i].get_velocity())
 					{
@@ -201,23 +187,19 @@ int main(int argc, char const *argv[])
 
 					bird[i].pos.set_real_time_x(x);
 					bird[i].pos.set_real_time_y(y);
-					if ((bird[i].get_direction_angle_actual() > 3.14) && (bird[i].get_direction_angle_actual() < -3.14))
-					{
-						printf("error\n");
-						quit = true;
-					}
+					//draw bird on display
 					aldisplay->updateBird(bird[i].pos.get_real_time_x(), bird[i].pos.get_real_time_y(), bird[i].get_direction_angle_actual());
 					
 				}
 				//https://docs.microsoft.com/en-us/cpp/error-messages/compiler-errors-1/compiler-error-c2360?f1url=https%3A%2F%2Fmsdn.microsoft.com%2Fquery%2Fdev15.query%3FappId%3DDev15IDEF1%26l%3DEN-US%26k%3Dk(C2360)%26rd%3Dtrue&view=vs-2017
+				//print eyesight, rdmjglimit, valocity values on display
 				{
 					std::string str = std::to_string(bird[0].get_eyesight());
 					str = "Eyesight= " + str;
 					const char * c = str.c_str();
 					aldisplay->printText(c, 0);
 
-
-					str = std::to_string(userData->randomJiggleLimit);
+					str = std::to_string(bird[0].get_rjiggle());
 					str = "RandomJiggleLimit= " + str;
 					c = str.c_str();
 					aldisplay->printText(c, 1);
@@ -234,6 +216,7 @@ int main(int argc, char const *argv[])
 				aldisplay->updateDisplay();
 				
 				j += STEP;
+				//si ya termino de moverse una unidad, actualiza su siguiente posicion.
 				if (j >= 1)
 				{
 					for (i = 0; i < userData->birds_num; i++)
@@ -248,7 +231,7 @@ int main(int argc, char const *argv[])
 					for (i = 0; i < userData->birds_num; i++)
 					{
 						bird[i].set_direction_angle_actual(bird[i].get_direction_angle_next()); //get angle next
-						bird[i].set_rjiggle(randIntBetween(0, r_jiggle_limit));
+						//bird[i].set_rjiggle(randIntBetween(0, r_jiggle_limit));
 					}
 					for (i = 0; i < userData->birds_num; i++)
 					{
@@ -274,41 +257,65 @@ int main(int argc, char const *argv[])
 					restart = true;
 				}
 				break;
-			case inceyesight_:
-				for (i = 0; i < userData->birds_num; i++)
+			case eyesight_:
+				key = eyesight_;
+				break;
+			case rjiggle_:
+				key = rjiggle_;
+				break;
+			case velocity_:
+				key = velocity_;
+				break;
+			case up_:
+				switch (key)
 				{
-					bird[i].increment_eyesight();
+				case eyesight_:
+					for (i = 0; i < userData->birds_num; i++)
+					{
+						bird[i].increment_eyesight();
+					}
+					break;
+				case rjiggle_:
+					for (i = 0; i < userData->birds_num; i++)
+					{
+						bird[i].increment_randomjigglelimit();
+					}
+					break;
+				case velocity_:
+					for (i = 0; i < userData->birds_num; i++)
+					{
+						bird[i].increment_velocity();
+					}
+					break;
 				}
 				break;
-			case deceyesight_:
-				for (i = 0; i < userData->birds_num; i++)
+			case down_:
+				switch (key)
 				{
-					bird[i].decrement_eyesight();
+				case eyesight_:
+					for (i = 0; i < userData->birds_num; i++)
+					{
+						bird[i].decrement_eyesight();
+					}
+					break;
+				case rjiggle_:
+					for (i = 0; i < userData->birds_num; i++)
+					{
+						bird[i].decrement_randomjigglelimit();
+					}
+					break;
+				case velocity_:
+					for (i = 0; i < userData->birds_num; i++)
+					{
+						bird[i].decrement_velocity();
+					}
+					break;
 				}
-				break;
-			case incrjiggle_:
-				break;
-			case decrjiggle_:
-				break;
-			case incvelocity_:
-				for(i = 0; i < userData->birds_num; i++)
-				{
-					bird[i].increment_velocity();
-				}
-				break;
-			case decvelocity_:
-				for (i = 0; i < userData->birds_num; i++)
-				{
-					bird[i].decrement_velocity();
-				}
-				break;
-
-
-			
+				break;		
 		}
 		
 	}
-	
+	//destroy
 	aldisplay->destroyAllegroDisplay();
 	delete[] aldisplay;
 	delete[] bird;
