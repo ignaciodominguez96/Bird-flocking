@@ -13,9 +13,9 @@
 
 #define PI M_PI
 
-#define EYESIGHT_MAX 5
+#define EYESIGHT_MAX 10
 #define EYESIGHT_MIN 1
-#define MAX_BIRDS 10	//maximo de pajaros
+#define MAX_BIRDS 50	//maximo de pajaros
 
 #define VELOCITY_MAX 5
 #define VELOCITY_MIN 1

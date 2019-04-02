@@ -145,7 +145,7 @@ int main(int argc, char const *argv[])
 				bird[i].pos.set_y(randDoubleBetween(0.0, HEIGHT));
 				bird[i].pos.set_real_time_x(bird[i].pos.get_x());
 				bird[i].pos.set_real_time_y(bird[i].pos.get_y());
-				bird[i].set_direction_angle_actual(randDoubleBetween(-3.14, 3.14));
+				bird[i].set_direction_angle_actual(randDoubleBetween(-PI, PI));
 				/*bird[i].set_max_pos(WIDTH, HEIGHT);
 				bird[i].set_pos(randDoubleBetween(0.0, WIDTH), randDoubleBetween(0.0, HEIGHT));*/
 				bird[i].move();
