@@ -4,8 +4,14 @@
 #ifndef BIRD_H
 #define BIRD_H
 
+
+#define _USE_MATH_DEFINES
+#include <math.h>
+
 #include "Position.h"
 #include "typedefs.h"
+
+#define PI M_PI
 
 #define EYESIGHT_MAX 5
 #define EYESIGHT_MIN 1
@@ -14,8 +20,9 @@
 #define VELOCITY_MAX 5
 #define VELOCITY_MIN 1
 
-#define R_JIGGLE_MAX 3.14
-#define R_JIGGLE_MIN 10
+#define R_JIGGLE_MAX PI
+#define R_JIGGLE_MIN 0
+
 
 
 
