@@ -72,13 +72,14 @@ int main(int argc, char const *argv[])
 		return 0; //there was an error, abort
 	}
 	*/
-
-	/**************************/
+	
+	
 	userData->birds_num = 200;
 	userData->eyeSight = 3;
 	userData->mode = mode1;
 	userData->randomJiggleLimit = 0.0;
-	/**************************/
+	
+	
 
 	//aca empieza la simulacion
 	Bird * bird = new Bird[userData->birds_num];
