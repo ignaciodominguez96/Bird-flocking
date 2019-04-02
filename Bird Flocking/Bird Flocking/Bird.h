@@ -14,7 +14,7 @@
 #define VELOCITY_MAX 5
 #define VELOCITY_MIN 1
 
-#define R_JIGGLE_MAX 10
+#define R_JIGGLE_MAX 3.14
 #define R_JIGGLE_MIN 10
 
 
@@ -30,15 +30,15 @@ class Bird
 		//constructores
 		Bird();
 
-		Bird(uint velocity_, double eyesight_, uint rjiggle_, uint pos_x, uint pos_y, uint height, uint width);
+		Bird(uint velocity_, double eyesight_, double rjiggle_, uint pos_x, uint pos_y, uint height, uint width);
 
-		Position* pos;
+		Position pos;
 
 		//getters
 		double	get_direction_angle_actual(void);
 		double	get_direction_angle_next(void);
 		double	get_eyesight(void);
-		uint	get_rjiggle(void);
+		double	get_rjiggle(void);
 		uint	get_velocity(void);
 		Position*	get_pos(void);
 
@@ -47,7 +47,7 @@ class Bird
 
 		void set_direction_angle_actual(double direction_angle_actual_);
 		void set_direction_angle_next(double direction_angle_next_);
-		void set_rjiggle(uint rijggle_);
+		void set_rjiggle(double rijggle_);
 		void set_eyesight(double eyesight_);
 		void set_velocity(uint velocity_);
 		void set_pos(Position* pos_);
@@ -71,7 +71,7 @@ class Bird
 	private:
 		double direction_angle_actual;
 		double direction_angle_next;
-		uint rjiggle;
+		double rjiggle;
 		double eyesight;
 
 		uint velocity;

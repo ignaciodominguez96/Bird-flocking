@@ -4,18 +4,21 @@
 #include "Allegro.h"
 
 #define TIMER 10.0
-#define FPS 60.0
-#define TEXTSIZE 10
-#define UNIT 10
+#define FPS 300.0
+#define TEXTSIZE 50
+#define MODETEXTSIZE 50
+#define UNIT 20
 #define CX 76
 #define CY 38
 #define BIRDSCALE 0.17
+#define SPACE TEXTSIZE
 
 
 AllegroDisplay::AllegroDisplay()
 {
 	display = NULL;
 	font = NULL;
+	font2 = NULL;
 	bird = NULL;
 	event_queue = NULL;
 	timer = NULL;
@@ -57,7 +60,12 @@ bool AllegroDisplay::initAllegroDisplay(const char * textfont, int h, int w, con
 	font = al_load_ttf_font(textfont, TEXTSIZE, 0); //HAY CREAR UN FONT PARA CADA TAMAÑO DE LETRA :( 
 
 	if (!font) {
-		fprintf(stderr, "Could not load 'disney.ttf'.\n");
+		fprintf(stderr, "Could not load text font.\n");
+		return false;
+	}
+	font2 = al_load_ttf_font(textfont, MODETEXTSIZE, 0);
+	if (!font2) {
+		fprintf(stderr, "Could not load text font.\n");
 		return false;
 	}
 
@@ -172,4 +180,22 @@ enum event AllegroDisplay::getNextEvent(void)
 			break;
 	}
 	return null_;
+}
+
+void AllegroDisplay::printText(const char* text, int line)
+{
+	al_draw_text(font, al_map_rgb(255, 0, 0), 0, line * SPACE, ALLEGRO_ALIGN_LEFT, text);
+}
+
+void AllegroDisplay::printMode(int mode, int w, int h)
+{
+	switch (mode)
+	{
+	case 1:
+		al_draw_text(font, al_map_rgb(255, 0, 0), w*UNIT , h*UNIT, ALLEGRO_ALIGN_CENTRE, "MODE 1");
+		break;
+	case 2:
+		al_draw_text(font, al_map_rgb(255, 0, 0), w*UNIT, h*UNIT, ALLEGRO_ALIGN_CENTRE, "MODE 2");
+		break;
+	}
 }

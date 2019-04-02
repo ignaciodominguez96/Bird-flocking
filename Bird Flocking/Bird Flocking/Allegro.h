@@ -25,10 +25,13 @@ class AllegroDisplay
 		void updateBird(double x, double y, double angle);
 		void updateDisplay(void);
 		enum event getNextEvent(void);
+		void printText(const char* text, int line);
+		void printMode(int mode, int w, int h);
 		
 	private:
 		ALLEGRO_DISPLAY* display;
 		ALLEGRO_FONT* font;
+		ALLEGRO_FONT* font2;
 		ALLEGRO_BITMAP* bird;
 		ALLEGRO_EVENT_QUEUE* event_queue;
 		ALLEGRO_TIMER *timer;
