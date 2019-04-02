@@ -155,7 +155,7 @@ int main(int argc, char const *argv[])
 				{
 					//find real time x,y
 					double dist_x = bird[i].pos.get_next_x() - bird[i].pos.get_x();
-					if (ABSOLUTE(dist_x) >= bird[i].get_velocity())
+					if (ABSOLUTE(dist_x) >= VELOCITY_MAX)
 					{
 						dist_x =  dist_x - WIDTH ;
 						x = bird[i].pos.get_real_time_x() + dist_x * STEP;
@@ -170,7 +170,7 @@ int main(int argc, char const *argv[])
 					}
 
 					double dist_y = bird[i].pos.get_next_y() - bird[i].pos.get_y();
-					if (ABSOLUTE(dist_y) >= bird[i].get_velocity())
+					if (ABSOLUTE(dist_y) >= VELOCITY_MAX)
 					{
 						dist_y = dist_y - HEIGHT ;
 						y = bird[i].pos.get_real_time_y() + dist_y * STEP;
